@@ -8,7 +8,7 @@ import {withTheme} from "styled-components";
 
 class Homepage extends Component {
     render() {
-      // console.log(this.props)
+
       return (
         <React.Fragment>
             <GreetAndHero />

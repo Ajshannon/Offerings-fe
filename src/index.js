@@ -1,17 +1,28 @@
+// React
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App.js';
-// import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter} from 'react-router-dom';
+
+// CSS
+import './index.css';
+
+// Components
+import App from './App.js';
+
+// Redux
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { reducer } from './store/reducers';
-import * as serviceWorker from './serviceWorker';
 import thunk from 'redux-thunk';
 
-//React-Cookie
+// ServiceWorker
+import * as serviceWorker from './serviceWorker';
+
+// React-Cookie
 import { CookiesProvider } from 'react-cookie';
+
+// Theme
+import Themed from './theme'
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -23,7 +34,9 @@ const app = (
     <CookiesProvider>
         <BrowserRouter>
             <Provider store={ store }>
-                <App />
+                <Themed>
+                    <App />
+                </Themed>
             </Provider>
         </BrowserRouter>
     </CookiesProvider>

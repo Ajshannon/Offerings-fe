@@ -3,9 +3,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 
-import PropTypes from 'prop-types';
+// Import PropTypes from 'prop-types';
 
-import { withStyles } from '@material-ui/core/styles';
+// Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -14,34 +14,35 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
 import Drawer from '@material-ui/core/Drawer';
-
 import SvgIcon from '@material-ui/core/SvgIcon';
+
 import styled from 'styled-components';
 
-//Redux
+// Redux
 import { connect } from 'react-redux';
 
-//Actions
+// Actions
 import * as actions from '../store/actions/index';
 
-const styles = {
-    root: {
-      flexGrow: 1,
-    },
-    grow: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginleft: -12,
-      marginRight: 20,
-    },
-  };
+// Redux Form
+import { Field, reduxForm } from 'redux-form'
+
+// const styles = {
+//     root: {
+//       flexGrow: 1,
+//     },
+//     grow: {
+//       flexGrow: 1,
+//     },
+//     menuButton: {
+//       marginleft: -12,
+//       marginRight: 20,
+//     },
+//   };
 
 const RightContainer = styled.div`
   display: flex;
@@ -55,7 +56,7 @@ const RightContainer = styled.div`
 
 const MobileContainer = styled(MenuIcon)`
 && {
-  @media(min-width: 600px) {
+  @media(min-width: 600px) {import { withTheme } from 'styled-components';
     display: none;
   }
   }
@@ -107,7 +108,6 @@ function MaterialIcon(props) {
     
     render() {
       
-      const { classes } = this.props;
       const { auth, anchorEl } = this.state;
       const open = Boolean(anchorEl);
       const sideList = (
@@ -164,14 +164,14 @@ function MaterialIcon(props) {
           </Drawer>
           <AppBar position="static" style={{backgroundColor:'Green'}}>
             <Toolbar>
-              <Typography variant="h6" marginleft="20" color="inherit" className={classes.grow}>
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
+              <Typography variant="h6" marginleft="20">
+                <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
                   <MobileContainer/>
                 </IconButton>
               </Typography>
               {auth && (
               <RightContainer>
-                  <Typography variant="h6" marginleft="20" color="inherit" className={classes.grow}>
+                  <Typography variant="h6" marginleft="20">
                         
                         {
                           this.props.user ?
@@ -181,7 +181,7 @@ function MaterialIcon(props) {
 
                         }
                   </Typography>
-                  <IconButton variant="h6" marginleft="20" color="inherit" className={classes.grow}
+                  <IconButton variant="h6" marginleft="20" 
                   
                     aria-owns={open ? 'menu-appbar' : undefined}
                     aria-haspopup="true"
@@ -192,7 +192,7 @@ function MaterialIcon(props) {
                   <Menu 
                     id="menu-appbar"
                     anchorEl={anchorEl}
-                    // anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}} 
+                    // anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
                     transformOrigin={{ vertical: 'bottom', horizontal: 'right'}}
                     open={open}
                     onClose={this.handleClose}
@@ -214,9 +214,9 @@ function MaterialIcon(props) {
       );
     }}
   
-  NavBar.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
+  // NavBar.propTypes = {
+  //   classes: PropTypes.object.isRequired,
+  // };
   
   // export default withStyles(styles)(NavBar);
 
@@ -231,4 +231,4 @@ function MaterialIcon(props) {
    }
  }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(NavBar)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));

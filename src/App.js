@@ -8,13 +8,7 @@ import { withCookies } from 'react-cookie';
 // Redux
 import { connect } from 'react-redux';
 
-// Material Ui
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-
 // CSS
-import { ThemeProvider } from 'styled-components';
 import './App.css';
 
 // Pages
@@ -27,44 +21,28 @@ import NavBar from './components/NavBar';
 // Actions
 import * as actions from './store/actions/index'
 
-
-const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
-  palette: green,
-})
-
-const MuiStyledBridge = withStyles({}, {withTheme: true})(({ theme, children }) => {
-  return <ThemeProvider theme={theme}>
-      {children}
-  </ThemeProvider>
-})
+// Styled Components
+import { withTheme } from 'styled-components';
 
 
 class App extends Component {
 
   componentDidMount() {
     this.props.onTryAutoLogin();
+    console.log(this.props)
   }
 
   render() { 
     return (
       <React.Fragment>
-        <MuiThemeProvider theme={theme}>
-          <MuiStyledBridge> 
             <NavBar {...this.props}>
-            
               <Switch>
                 <Route exact path='/' render={() => <Homepage {...this.props}/>} />
                 <Route exact path='/create_offering' render={() => <CreateOffering {...this.props}/>} />
                 <Route exact path='/login' render={() => <LoginPage {...this.props}/>} />
                 <Route exact path='/signup' render={() => <SignupPage {...this.props}/>} />
               </Switch>
-
             </NavBar>
-          </MuiStyledBridge>
-          </MuiThemeProvider>
         </React.Fragment>
     );
   }
@@ -80,6 +58,5 @@ const mapDispatchToProps = dispatch => {
     onTryAutoLogin: () => dispatch(actions.authCheckState())
   }
 }
-const cookieApp = withCookies(App)
 
-export default connect(mapStateToProps, mapDispatchToProps)(cookieApp);
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(withTheme(App)));
