@@ -5,63 +5,63 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 
-const styles = {
-  card: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignContent: 'center',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
-    minWidth: 275,
-    height: '40%',
-    marginTop: '5vh',
-    marginleft: '10%',
-    marginRight: '10%'
-  },
-  title: {
-    fontSize: 24,
-    color: 'black',
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: '1vh',
-    marginBottom: '5vh',
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  textField: {
-      width: '60vw',
-      marginBottom: '10%',
-  },
-  bootstrapRoot: {
-    display: 'flex',
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: 16,
-    width: '25vw',
-    height: '5vh',
-    border: '1px solid',
-    lineHeight: 1.5,
-    backgroundColor: 'Green',
-    borderColor: 'Green',
-  },
-  ButtonContainer: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center',
-      marginBottom: '1vh'
-  },
-  signupForm: {
-      display: 'flex',
-      flexDirection: 'column',
-  }
-};
+// const styles = {
+//   card: {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     alignContent: 'center',
+//     justifyContent: 'flex-start',
+//     flexWrap: 'wrap',
+//     minWidth: 275,
+//     height: '40%',
+//     marginTop: '5vh',
+//     marginleft: '10%',
+//     marginRight: '10%'
+//   },
+//   title: {
+//     fontSize: 24,
+//     color: 'black',
+//     display: 'flex',
+//     justifyContent: 'center',
+//     marginTop: '1vh',
+//     marginBottom: '5vh',
+//   },
+//   pos: {
+//     marginBottom: 12,
+//   },
+//   textField: {
+//       width: '60vw',
+//       marginBottom: '10%',
+//   },
+//   bootstrapRoot: {
+//     display: 'flex',
+//     boxShadow: 'none',
+//     textTransform: 'none',
+//     fontSize: 16,
+//     width: '25vw',
+//     height: '5vh',
+//     border: '1px solid',
+//     lineHeight: 1.5,
+//     backgroundColor: 'Green',
+//     borderColor: 'Green',
+//   },
+//   ButtonContainer: {
+//       display: 'flex',
+//       width: '100%',
+//       flexDirection: 'column',
+//       alignItems: 'center',
+//       marginBottom: '1vh'
+//   },
+//   signupForm: {
+//       display: 'flex',
+//       flexDirection: 'column',
+//   }
+// };
 
 
-function SignupCard(props) {
+function SignupForm(props) {
   const { classes } = props;
 
   return (
@@ -129,8 +129,8 @@ function SignupCard(props) {
   );
 }
 
-SignupCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// SignupForm.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
-export default withStyles(styles)(SignupCard);
+export default (SignupForm);

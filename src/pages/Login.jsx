@@ -72,9 +72,9 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        token: state.token,
-        loading: state.loading,
-        error: state.error
+        token: state.reducer.token,
+        loading: state.reducer.loading,
+        error: state.reducer.error
     }
 }
 

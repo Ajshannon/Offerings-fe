@@ -47,9 +47,16 @@ class App extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
+  // let auth = false;
+  // if(state.token) {
+  //   auth = true
+  // }
+  // else { auth = false }
+  console.log(state.reducer.token)
   return {
-    isAuthenticated: state.token !== null
+    isAuthenticated: state.reducer.token !== null
   }
 }
 

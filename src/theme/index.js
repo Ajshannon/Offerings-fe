@@ -6,7 +6,8 @@ import { ThemeProvider } from "styled-components";
 //material UI
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
-import { green } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
+
 
 
 
@@ -18,17 +19,45 @@ import { green } from '@material-ui/core/colors';
     typography: {
       useNextVariants: true,
     },
-    palette: green,
+    root: {
+      display: "grid",
+      gridTemplateColumns: "repeat(4, 1fr)",
+      gridGap: "24px",
+    },
+    paper: {
+      textAlign: 'center',
+    },
+    background: {
+      default: "#fafafa",
+      paper: "#fff",
+    },
+    textField: {
+      width: '45vw',
+    },
+    palette: {
+      primary: {
+        contrastText: "white",
+        dark:"rgb(44, 126, 46)",
+        light:"#0066ff",
+        main:"#3fb542",
+      },
+      secondary: {
+        main: '#2196f3'
+      },
+    },
+    error: red,
+
   });
 
+  console.log(muiTheme)
   //The MuiThemeProvider and the ThemeProvider both inject the theme into the context of the component
 
-  const Themed = withStyles({muiTheme}, {withTheme: true})(({children }) => {
+  const Themed = withStyles({muiTheme}, {withTheme: true})(({children}) => {
     return <MuiThemeProvider theme={muiTheme}>
-            <ThemeProvider theme={muiTheme}>
-                {children}
-            </ThemeProvider>
-          </MuiThemeProvider>
+              <ThemeProvider theme={muiTheme}>
+                  {children}
+              </ThemeProvider>
+            </MuiThemeProvider>
 })
 
   export default Themed;

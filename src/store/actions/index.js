@@ -86,6 +86,7 @@ export const authLogin = (username, password, csrfToken) => {
 
 
 export const authSignup = (username, password1, password2, first_name, last_name, email) => {
+    console.log("signing up...")
     return dispatch => {
         dispatch(authStart());
         axios.post('http://127.0.0.1:8000/rest-auth/registration/', {

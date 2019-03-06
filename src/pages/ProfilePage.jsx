@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import '../App.css';
-import ProfileCard from '../components/ProfileCard'
+import ProfileForm from '../components/ProfileForm'
 
 class ProfilePage extends React.Component {
     render () {
         return (
             <React.Fragment>
-                <ProfileCard />
+                <ProfileForm />
             </React.Fragment>
         )
     }
