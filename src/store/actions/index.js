@@ -52,10 +52,39 @@ export const getUser = (token) => {
         })
         .then(res => {
             dispatch(authSuccess(token, res.data))
+            // dispatch(updateProfile(address, phone))
+            // dispatch(getProfile())
         })
     }
 }
 
+// export const getProfile = (token) => {
+
+//     return dispatch => {
+//         axios.get('http://127.0.0.1:8000/api/v1/user/', {
+//             headers: {'Authorization': "Token " + token}
+//         })
+//         .then(res => {
+//             dispatch(authSuccess(token, res.data))
+//         })
+//     }
+// }
+
+// export const updateProfile = () => {
+//     return dispatch => {
+//         axios.put('http://127.0.0.1:800/api/v1/profile', {
+//             headers: {'Authorization': "Token " + token}
+//         })
+//     }
+// }
+
+export const PostOffering = (token, title, address, description, image) => {
+    return dispatch => {
+        axios.post('http://127.0.0.1:800/api/v1/profile', {
+            headers: {'Authorization': "Token " + token}
+        })
+    }
+}
 
 export const authLogin = (username, password, csrfToken) => {
     

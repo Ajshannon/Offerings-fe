@@ -125,6 +125,10 @@ function MaterialIcon(props) {
                 <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
                 <ListItemText>Signup</ListItemText>
               </MenuItem>
+              <MenuItem component={Link} to='/offering-post'>
+                <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
+                <ListItemText>Signup</ListItemText>
+              </MenuItem>
               {
                 this.props.isAuthenticated ?
 
@@ -195,6 +199,7 @@ function MaterialIcon(props) {
                   >
                     <MenuItem onClick={this.handleClose}>Settings</MenuItem>
                     <MenuItem component={ Link } onClick={this.handleClose} to='/signup'>Signup</MenuItem>
+                    <MenuItem component={ Link } onClick={this.handleClose} to='/offering-post'>Post Offering</MenuItem>
                     {
                       this.props.isAuthenticated ?
                       <MenuItem component={ Link } onClick={this.props.logout} to='/'>Signout</MenuItem> :

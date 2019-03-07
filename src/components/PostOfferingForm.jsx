@@ -7,39 +7,31 @@ import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
 
 import { reduxForm, Field } from 'redux-form';
-import isValidEmail from 'sane-email-validation';
+// import isValidEmail from 'sane-email-validation';
 
 // Components
 import MuiCard from './Card';
 import Container from './Container';
 
+// React-Drop
+// import Dropzone from 'react-dropzone';
 
+// React DropZone
+import DropYourShitZone from '../components/DropShit';
 
 const validate = values => {
     const errors = {}
-    if (!values.username) {
-      errors.username = 'Required'
+    if (!values.title) {
+      errors.title = 'Required'
     }
-    if (!values.email) {
-        errors.email = 'Required'
-
-    } else if (!isValidEmail(values.email)) {
-        errors.email = 'Invalid Email'
+    if (!values.address) {
+        errors.address = 'Required'
     }
-    if (!values.firstName) {
-      errors.firstName = 'Required'
+    if (!values.description) {
+      errors.description = 'Required'
     }
-    if (!values.lastName) {
-        errors.lastName = 'Required'
-    }
-    if (!values.password1) {
-      errors.password = 'Required'
-    }
-    if (!values.confirm) {
-      errors.confirm = 'Required'
-    }
-    if (values.password1 !== values.confirm) {
-      errors.confirm = 'Passwords do not match'
+    if (!values.image) {
+      errors.image = 'Required'
     }
     return errors
   }
@@ -50,7 +42,6 @@ const validate = values => {
         meta.error && meta.touched ? 'error' : '',
         meta.active ? 'active' : ''
       ].join(' ')}
-
     >
 
     {meta.error && meta.touched ? render(input, name, id, error = true, errorMsg = meta.error, rest) : 
@@ -69,22 +60,20 @@ const validate = values => {
 //     </select>
 //   )
   
-  let SignupForm = (props, { handleSubmit, pristine, reset, submitting }) => {
-  console.log(props)
+  let PostOffering = (props, { submitting }) => {
+  
   return (
   <Container>
       
       <MuiCard>
+      
         <Typography color="inherit" gutterBottom>
-          Signup Form
+          Post Offering
         </Typography>
-        <form onSubmit={props.handleSignup}>
-            <Field required component={RenderInput} name="username" id="username"  onChange={ props.handleInputChange }/>
-            <Field required name="password" id="password1" component={RenderInput} onChange={ props.handleInputChange }/>
-            <Field required name="confirm" id="password2" component={RenderInput} onChange={ props.handleInputChange }/>
-            <Field required name="email" id="email" component={RenderInput} onChange={ props.handleInputChange }/>
-            <Field name="firstName" id="first_name" component={RenderInput} onChange={ props.handleInputChange }/>
-            <Field name="lastName" id="last_name" component={RenderInput} onChange={ props.handleInputChange }/>
+        <form onSubmit={props.handlePost}>
+            <Field name="title" id="title" component={RenderInput} onChange={ props.handleInputChange }/>
+            <Field name="address" id="address" component={RenderInput} onChange={ props.handleInputChange }/>
+            <Field name="description" id="last_name" component={RenderInput} onChange={ props.handleInputChange }/>
         </form>
         <CardActions style={{justifyContent: 'center'}}>
             <Button type="button" disabled={submitting} color="primary" variant="contained">
@@ -95,10 +84,10 @@ const validate = values => {
   </Container>
   )}
   
-    SignupForm = reduxForm({
-    form: 'SignupForm',
+    PostOffering = reduxForm({
+    form: 'PostOffering',
     destroyOnUnmount: false,
     validate
-  })(SignupForm)
+  })(PostOffering)
 
-export default (SignupForm);
+export default (PostOffering);

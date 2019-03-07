@@ -46,7 +46,9 @@ import { red } from '@material-ui/core/colors';
       },
     },
     error: red,
-
+    spacing: {
+      unit: 8
+    },
   });
 
   console.log(muiTheme)

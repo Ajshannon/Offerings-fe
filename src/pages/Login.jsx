@@ -36,7 +36,6 @@ class LoginPage extends React.Component {
         })
     }
 
-
     handleLogin = (e) => {
 
         this.props.onAuth(this.state.username, this.state.password, this.state.csrfToken)
