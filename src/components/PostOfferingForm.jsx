@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
 
 import { reduxForm, Field } from 'redux-form';
-// import isValidEmail from 'sane-email-validation';
 
 // Components
 import MuiCard from './Card';
@@ -61,22 +60,20 @@ const validate = values => {
 //   )
   
   let PostOffering = (props, { submitting }) => {
-  
   return (
   <Container>
-      
       <MuiCard>
-      
+        <DropYourShitZone onDrop={props.onDrop}></DropYourShitZone>
         <Typography color="inherit" gutterBottom>
           Post Offering
         </Typography>
         <form onSubmit={props.handlePost}>
             <Field name="title" id="title" component={RenderInput} onChange={ props.handleInputChange }/>
             <Field name="address" id="address" component={RenderInput} onChange={ props.handleInputChange }/>
-            <Field name="description" id="last_name" component={RenderInput} onChange={ props.handleInputChange }/>
+            <Field name="description" id="description" component={RenderInput} onChange={ props.handleInputChange }/>
         </form>
         <CardActions style={{justifyContent: 'center'}}>
-            <Button type="button" disabled={submitting} color="primary" variant="contained">
+            <Button type="button" disabled={submitting} onClick={props.handlePost} color="primary" variant="contained">
                 Submit
             </Button>
         </CardActions>

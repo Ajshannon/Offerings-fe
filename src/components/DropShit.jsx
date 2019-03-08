@@ -6,7 +6,7 @@ export default class DropYourShitZone extends React.Component {
 
   render() {
       return (
-          <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+          <Dropzone onDrop={acceptedFiles => this.props.onDrop(acceptedFiles)}>
           {({getRootProps, getInputProps}) => (
               <section>
               <div {...getRootProps()}>

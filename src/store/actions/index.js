@@ -52,8 +52,6 @@ export const getUser = (token) => {
         })
         .then(res => {
             dispatch(authSuccess(token, res.data))
-            // dispatch(updateProfile(address, phone))
-            // dispatch(getProfile())
         })
     }
 }
@@ -78,10 +76,45 @@ export const getUser = (token) => {
 //     }
 // }
 
-export const PostOffering = (token, title, address, description, image) => {
+
+export const PostOffering = (title, address, description, image, id) => {
+    const url = 'http://127.0.0.1:8000/api/v1/profile/' + id + '/';
+    const token = localStorage.getItem('token')
+    
     return dispatch => {
-        axios.post('http://127.0.0.1:800/api/v1/profile', {
+        axios.get(url, {
             headers: {'Authorization': "Token " + token}
+        })
+        .then(res => {
+            const profile = res.data.id
+            dispatch(PostOfferingPt2(title, address, description, image, profile))
+            
+        })
+        .catch(err => {
+            dispatch(authFail(err))
+        })
+    }
+}
+
+export const PostOfferingPt2 = (title, address, description, image, profile) => {
+    const url = 'http://127.0.0.1:8000/api/v1/offerings/';
+    const token = localStorage.getItem('token');
+    
+    return dispatch => {
+        axios.post(url, {
+            title: title,
+            address: address,
+            description: description,
+            image: 'http://example.com/' + image,
+            profile: profile
+        }, {
+            headers: {'Authorization': "Token " + token},
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            dispatch(authFail(err))
         })
     }
 }
@@ -102,7 +135,6 @@ export const authLogin = (username, password, csrfToken) => {
             localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);
             localStorage.setItem('username', username);
-            // dispatch(authSuccess(token))
             dispatch(getUser(token))
             dispatch(checkAuthTimeout(3600))
         })

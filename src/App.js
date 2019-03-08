@@ -25,14 +25,13 @@ import * as actions from './store/actions/index'
 // Styled Components
 import { withTheme } from 'styled-components';
 
-import DropYourShitZone from './components/DropShit';
+
 
 
 class App extends Component {
 
   componentDidMount() {
     this.props.onTryAutoLogin();
-    console.log(this.props)
   }
 
   render() { 
@@ -45,7 +44,7 @@ class App extends Component {
                 <Route exact path='/login' render={() => <LoginPage {...this.props}/>} />
                 <Route exact path='/signup' render={() => <SignupPage {...this.props}/>} />
                 <Route exact path='/offering-post' render={() => <PostOffering {...this.props}/>} />
-                <Route exact path='/dropzone' render={() => <DropYourShitZone {...this.props}></DropYourShitZone>} />
+
               </Switch>
             </NavBar>
         </React.Fragment>
@@ -59,7 +58,6 @@ const mapStateToProps = state => {
   //   auth = true
   // }
   // else { auth = false }
-  console.log(state.reducer.token)
   return {
     isAuthenticated: state.reducer.token !== null
   }

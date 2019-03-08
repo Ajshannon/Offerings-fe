@@ -70,7 +70,6 @@ const validate = values => {
 //   )
   
   let SignupForm = (props, { handleSubmit, pristine, reset, submitting }) => {
-  console.log(props)
   return (
   <Container>
       

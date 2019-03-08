@@ -29,18 +29,19 @@ class PostOfferingPage extends React.Component {
         image: '',
     }
 
-    //Computed property syntax 
+    //Computed property syntax
     handleInputChange = (event) => {
         const id = event.target.id;
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+        console.log(this.state)
         this.setState({
             [id]: value
         })
     }
 
     handlePost = (e) => {
-
-        this.props.post(this.state.title, this.state.address, this.state.description)
+        console.log(this.state)
+        this.props.post(this.state.title, this.state.address, this.state.description, this.state.image, this.props.user.id,)
         this.props.history.push('/');
     }
 
@@ -49,9 +50,10 @@ class PostOfferingPage extends React.Component {
         if (acceptedFiles && acceptedFiles.length > 0){
           this.setState({
             file: acceptedFiles[0],
-            image: acceptedFiles[0]["preview"]
+            image: acceptedFiles[0]["name"]
           })
         }
+        console.log(this.state)
       }
     
     render () {
@@ -98,7 +100,7 @@ const mapStateToProps = (state) => {
   const mapDispatchToProps = dispatch => {
 
     return {
-        post: (title, address, description, image, user) => dispatch(actions.PostOffering(title, address, description, image, user)),
+        post: (title, address, description, image, id) => dispatch(actions.PostOffering(title, address, description, image, id)),
     }
 }
 
