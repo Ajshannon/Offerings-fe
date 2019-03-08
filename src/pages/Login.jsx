@@ -36,7 +36,6 @@ class LoginPage extends React.Component {
         })
     }
 
-
     handleLogin = (e) => {
 
         this.props.onAuth(this.state.username, this.state.password, this.state.csrfToken)
@@ -72,9 +71,9 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        token: state.token,
-        loading: state.loading,
-        error: state.error
+        token: state.reducer.token,
+        loading: state.reducer.loading,
+        error: state.reducer.error
     }
 }
 

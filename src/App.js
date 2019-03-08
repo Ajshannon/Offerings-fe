@@ -17,6 +17,7 @@ import Homepage from './pages/Homepage.jsx';
 import LoginPage from './pages/Login.jsx';
 import SignupPage from './pages/Signup.jsx';
 import NavBar from './components/NavBar';
+import PostOffering from './pages/PostOffering';
 
 // Actions
 import * as actions from './store/actions/index'
@@ -25,11 +26,12 @@ import * as actions from './store/actions/index'
 import { withTheme } from 'styled-components';
 
 
+
+
 class App extends Component {
 
   componentDidMount() {
     this.props.onTryAutoLogin();
-    console.log(this.props)
   }
 
   render() { 
@@ -41,15 +43,23 @@ class App extends Component {
                 <Route exact path='/create_offering' render={() => <CreateOffering {...this.props}/>} />
                 <Route exact path='/login' render={() => <LoginPage {...this.props}/>} />
                 <Route exact path='/signup' render={() => <SignupPage {...this.props}/>} />
+                <Route exact path='/offering-post' render={() => <PostOffering {...this.props}/>} />
+
               </Switch>
             </NavBar>
         </React.Fragment>
     );
   }
 }
+
 const mapStateToProps = state => {
+  // let auth = false;
+  // if(state.token) {
+  //   auth = true
+  // }
+  // else { auth = false }
   return {
-    isAuthenticated: state.token !== null
+    isAuthenticated: state.reducer.token !== null
   }
 }
 

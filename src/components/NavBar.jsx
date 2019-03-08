@@ -28,8 +28,6 @@ import { connect } from 'react-redux';
 // Actions
 import * as actions from '../store/actions/index';
 
-// Redux Form
-import { Field, reduxForm } from 'redux-form'
 
 // const styles = {
 //     root: {
@@ -80,7 +78,6 @@ function MaterialIcon(props) {
   )
 }
 
-
   class NavBar extends React.Component {
     state = {
       auth: true,
@@ -107,7 +104,6 @@ function MaterialIcon(props) {
     )
     
     render() {
-      
       const { auth, anchorEl } = this.state;
       const open = Boolean(anchorEl);
       const sideList = (
@@ -126,6 +122,10 @@ function MaterialIcon(props) {
                 <ListItemText>Settings</ListItemText>
               </MenuItem>
               <MenuItem component={Link} to='/signup'>
+                <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
+                <ListItemText>Signup</ListItemText>
+              </MenuItem>
+              <MenuItem component={Link} to='/offering-post'>
                 <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
                 <ListItemText>Signup</ListItemText>
               </MenuItem>
@@ -162,10 +162,10 @@ function MaterialIcon(props) {
               {sideList}
             </div>
           </Drawer>
-          <AppBar position="static" style={{backgroundColor:'Green'}}>
+          <AppBar position="static" style={{backgroundColor:'primary'}}>
             <Toolbar>
               <Typography variant="h6" marginleft="20">
-                <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
+                <IconButton color="secondary" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
                   <MobileContainer/>
                 </IconButton>
               </Typography>
@@ -182,7 +182,7 @@ function MaterialIcon(props) {
                         }
                   </Typography>
                   <IconButton variant="h6" marginleft="20" 
-                  
+                    color="secondary"
                     aria-owns={open ? 'menu-appbar' : undefined}
                     aria-haspopup="true"
                     onClick={this.handleMenu}
@@ -199,6 +199,7 @@ function MaterialIcon(props) {
                   >
                     <MenuItem onClick={this.handleClose}>Settings</MenuItem>
                     <MenuItem component={ Link } onClick={this.handleClose} to='/signup'>Signup</MenuItem>
+                    <MenuItem component={ Link } onClick={this.handleClose} to='/offering-post'>Post Offering</MenuItem>
                     {
                       this.props.isAuthenticated ?
                       <MenuItem component={ Link } onClick={this.props.logout} to='/'>Signout</MenuItem> :
@@ -213,16 +214,11 @@ function MaterialIcon(props) {
         </div>
       );
     }}
-  
-  // NavBar.propTypes = {
-  //   classes: PropTypes.object.isRequired,
-  // };
-  
-  // export default withStyles(styles)(NavBar);
+
 
   const mapStateToProps = (state) => {
     return { 
-        user: state.user
+        user: state.reducer.user
     }
 }
  const mapDispatchToProps = dispatch => {

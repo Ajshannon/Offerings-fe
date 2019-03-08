@@ -56,6 +56,68 @@ export const getUser = (token) => {
     }
 }
 
+// export const getProfile = (token) => {
+
+//     return dispatch => {
+//         axios.get('http://127.0.0.1:8000/api/v1/user/', {
+//             headers: {'Authorization': "Token " + token}
+//         })
+//         .then(res => {
+//             dispatch(authSuccess(token, res.data))
+//         })
+//     }
+// }
+
+// export const updateProfile = () => {
+//     return dispatch => {
+//         axios.put('http://127.0.0.1:800/api/v1/profile', {
+//             headers: {'Authorization': "Token " + token}
+//         })
+//     }
+// }
+
+
+export const PostOffering = (title, address, description, image, id) => {
+    const url = 'http://127.0.0.1:8000/api/v1/profile/' + id + '/';
+    const token = localStorage.getItem('token')
+    
+    return dispatch => {
+        axios.get(url, {
+            headers: {'Authorization': "Token " + token}
+        })
+        .then(res => {
+            const profile = res.data.id
+            dispatch(PostOfferingPt2(title, address, description, image, profile))
+            
+        })
+        .catch(err => {
+            dispatch(authFail(err))
+        })
+    }
+}
+
+export const PostOfferingPt2 = (title, address, description, image, profile) => {
+    const url = 'http://127.0.0.1:8000/api/v1/offerings/';
+    const token = localStorage.getItem('token');
+    
+    return dispatch => {
+        axios.post(url, {
+            title: title,
+            address: address,
+            description: description,
+            image: 'http://example.com/' + image,
+            profile: profile
+        }, {
+            headers: {'Authorization': "Token " + token},
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            dispatch(authFail(err))
+        })
+    }
+}
 
 export const authLogin = (username, password, csrfToken) => {
     
@@ -73,7 +135,6 @@ export const authLogin = (username, password, csrfToken) => {
             localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);
             localStorage.setItem('username', username);
-            // dispatch(authSuccess(token))
             dispatch(getUser(token))
             dispatch(checkAuthTimeout(3600))
         })
@@ -86,6 +147,7 @@ export const authLogin = (username, password, csrfToken) => {
 
 
 export const authSignup = (username, password1, password2, first_name, last_name, email) => {
+    console.log("signing up...")
     return dispatch => {
         dispatch(authStart());
         axios.post('http://127.0.0.1:8000/rest-auth/registration/', {

@@ -6,13 +6,13 @@ import { withRouter } from 'react-router-dom';
 import '../App.css';
 
 //Components
-import SignupCard from '../components/SignupCard';
+import SignupForm from '../components/SignupForm';
 
 //Material Ui
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //Actions 
-import * as actions from '../store/actions/index'
+import * as actions from '../store/actions/index';
 
 //Redux
 import { connect } from 'react-redux';
@@ -24,27 +24,26 @@ class SignupPage extends React.Component {
         password2: '',
         first_name: '',
         last_name: '',
-        email: ''
+        email: '',
     }
 
     //Computed property syntax 
     handleInputChange = (event) => {
         const id = event.target.id;
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-
         this.setState({
             [id]: value
         })
     }
 
     handleSignup = (e) => {
+
         this.props.signUp(this.state.username, this.state.password1, this.state.password2, this.state.first_name, this.state.last_name, this.state.email)
         this.props.history.push('/');
     }
     
     
     render () {
-        console.log(this.handleSignup)
         let errorMessage = null;
         if (this.props.error) {
             errorMessage = (
@@ -61,7 +60,7 @@ class SignupPage extends React.Component {
                         
                         <CircularProgress />
                         :
-                        <SignupCard 
+                        <SignupForm 
                             handleInputChange={ this.handleInputChange } 
                             handleSignup={ this.handleSignup }
                         />
@@ -74,9 +73,9 @@ class SignupPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        token: state.token,
-        loading: state.loading,
-        error: state.error
+        token: state.reducer.token,
+        loading: state.reducer.loading,
+        error: state.reducer.error
     }
   }
 
