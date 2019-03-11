@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import ImageGrid from '../components/ImageGrid'
+import ImageGrid from '../components/Imagegrid'
 import GreetAndHero from '../components/GreetAndHero'
 import GridListHeader from '../components/CategoryHeaders';
 

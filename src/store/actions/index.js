@@ -105,7 +105,7 @@ export const PostOfferingPt2 = (title, address, description, image, profile) => 
             title: title,
             address: address,
             description: description,
-            image: 'http://example.com/' + image,
+            image: image,
             profile: profile
         }, {
             headers: {'Authorization': "Token " + token},

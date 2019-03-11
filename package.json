@@ -7,6 +7,8 @@
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
     "es6": "0.0.7",
+    "filestack-js": "^1.14.6",
+    "filestack-react": "^2.0.2",
     "material-design-icons": "^3.0.1",
     "react": "^16.8.4",
     "react-cookie": "^3.0.8",
