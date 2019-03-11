@@ -20,6 +20,11 @@ import { connect } from 'react-redux';
 // React DropZone
 // import DropShit from '../components/DropShit';
 
+// Filestack
+import * as filestack from 'filestack-js';
+const client = filestack.init('AF4xbENiITyaZU5EGIVXgz');
+
+
 class PostOfferingPage extends React.Component {
     state = {
         title: '',
@@ -39,10 +44,22 @@ class PostOfferingPage extends React.Component {
         })
     }
 
+
     handlePost = (e) => {
-        console.log(this.state)
-        this.props.post(this.state.title, this.state.address, this.state.description, this.state.image, this.props.user.id,)
-        this.props.history.push('/');
+        console.log(this.state.file)
+        client.upload(this.state.file)
+            .then(res => {
+                console.log('success: ', res)
+                this.setState({image: res.url})
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            .then(() => {
+                this.props.post(this.state.title, this.state.address, this.state.description, this.state.image, this.props.user.id,)
+                this.props.history.push('/');
+            })
     }
 
     // React-dropzone
@@ -50,7 +67,7 @@ class PostOfferingPage extends React.Component {
         if (acceptedFiles && acceptedFiles.length > 0){
           this.setState({
             file: acceptedFiles[0],
-            image: acceptedFiles[0]["name"]
+            console
           })
         }
         console.log(this.state)
