@@ -18,6 +18,9 @@ import Container from './Container';
 import DropYourShitZone from '../components/DropShit';
 import Content from './Content';
 
+// Filestack
+import ReactFilestack from 'filestack-react';
+
 const validate = values => {
     const errors = {}
     if (!values.title) {
