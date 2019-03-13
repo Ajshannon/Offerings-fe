@@ -6,31 +6,28 @@ import { withRouter } from 'react-router-dom';
 import '../App.css';
 
 //Components
-import PostOffering from '../components/PostOfferingForm';
+import PostSettingsForm from '../components/PostSettingsForm';
+
+//Redux
+import { connect } from 'react-redux';
 
 //Material Ui
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //Actions 
-import * as actions from '../store/actions/index';
-
-//Redux
-import { connect } from 'react-redux';
+import * as actions from '../store/actions/index'
 
 
+class SettingsPage extends React.Component {
 
-// Filestack
-import * as filestack from 'filestack-js';
-const client = filestack.init('AF4xbENiITyaZU5EGIVXgz');
-
-
-class PostOfferingPage extends React.Component {
     state = {
-        title: '',
-        address: '',
-        description: '',
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        password: '',
         file: [],
         image: '',
+        
     }
 
     //Computed property syntax
@@ -43,23 +40,10 @@ class PostOfferingPage extends React.Component {
         })
     }
 
-
     handlePost = (e) => {
-        console.log(this.state.file)
-        client.upload(this.state.file)
-            .then(res => {
-                console.log('success: ', res)
-                this.setState({image: res.url})
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-            .then(() => {
-                this.props.post(this.state.title, this.state.address, this.state.description, this.state.image, this.props.user.id,)
-                this.props.history.push('/');
-            })
 
+        this.props.post(this.state.first_name, this.state.last_name, this.state.phone_number, this.state.password, this.state.image, this.props.user.id, this.props.user.username)
+        this.props.history.push('/');
     }
 
     // React-dropzone
@@ -67,7 +51,7 @@ class PostOfferingPage extends React.Component {
         if (acceptedFiles && acceptedFiles.length > 0){
           this.setState({
             file: acceptedFiles[0],
-            console
+            image: acceptedFiles[0]["name"]
           })
         }
         console.log(this.state)
@@ -92,7 +76,7 @@ class PostOfferingPage extends React.Component {
                         :
                         <React.Fragment>
                             
-                            <PostOffering
+                            <PostSettingsForm
                                 handleInputChange={ this.handleInputChange } 
                                 handlePost={ this.handlePost }
                                 onDrop={ this.onDrop }
@@ -117,8 +101,8 @@ const mapStateToProps = (state) => {
   const mapDispatchToProps = dispatch => {
 
     return {
-        post: (title, address, description, image, id) => dispatch(actions.PostOffering(title, address, description, image, id)),
+        post: (first_name, last_name, phone_number, password, image, id, username) => dispatch(actions.updateProfile(first_name, last_name, phone_number, password, image, id, username)),
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostOfferingPage))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SettingsPage))

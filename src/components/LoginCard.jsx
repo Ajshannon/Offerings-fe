@@ -1,90 +1,83 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 
-const styles = {
-  card: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignContent: 'center',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
-    minWidth: 275,
-    height: '40%',
-    marginTop: '5vh',
-    marginleft: '10%',
-    marginRight: '10%'
-  },
-  title: {
-    fontSize: 24,
-    color: 'black',
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: '1vh',
-    marginBottom: '5vh',
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  textField: {
-      width: '60vw',
-      marginBottom: '15%',
-  },
-  bootstrapRoot: {
-    display: 'flex',
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: 16,
-    width: '25vw',
-    height: '5vh',
-    border: '1px solid',
-    lineHeight: 1.5,
-    backgroundColor: 'Green',
-    borderColor: 'Green',
-  },
-  ButtonContainer: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center',
+import CardActions from '@material-ui/core/CardActions';
+
+import { reduxForm, Field } from 'redux-form';
+
+// Components
+import MuiCard from './Card';
+import Container from './Container';
+import Content from './Content';
+
+
+const validate = values => {
+    const errors = {}
+    if (!values.username) {
+      errors.username = 'Required'
+    }
+    if (!values.password) {
+      errors.password = 'Required'
+    }
+    
+    return errors
   }
-};
 
-//object destructuring syntax
-function LoginCard({ classes, handleInputChange, handleLogin }) {
+  const createRenderer = render => ({ input, name, id, meta, error, errorMsg, ...rest }) =>
+    <div
+      className={[
+        meta.error && meta.touched ? 'error' : '',
+        meta.active ? 'active' : ''
+      ].join(' ')}
 
-    return (
-      <Card className={classes.card}>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Log in to Offerings
-          </Typography>
-          <br />
-          <form>
-              <TextField onChange={ handleInputChange } id="username" defaultValue="Username" className={classes.textField}/>
-              <br />
-              <TextField onChange={ handleInputChange } id="password" defaultValue="Password" className={classes.textField}/>
-          </form>
-        <CardActions>
-      <div className={classes.ButtonContainer}>
-        <Button onClick={ handleLogin } variant="contained" color="primary" className={classes.bootstrapRoot} >
+    >
+
+    {meta.error && meta.touched ? render(input, name, id, error = true, errorMsg = meta.error, rest) : 
+      render(input, name, id, error = false, rest)}
+      
+    </div>
+  
+  const RenderInput = createRenderer((input, name = input.name, id, error, errorMsg) => {
+    return error ? <TextField error required fullWidth {...input} id={id} label={name} color="primary"/> :
+     <TextField required fullWidth {...input} id={id} label={name} color="primary"/>
+  })
+  
+//   const RenderSelect = createRenderer((input, label, { children }) =>
+//     <select {...input}>
+//       {children}
+//     </select>
+//   )
+  
+  let SigninForm = (props, { handleSubmit, pristine, reset, submitting }) => {
+  return (
+  <Container>
+      
+      <MuiCard>
+        <Content>
+        <Typography color="inherit" gutterBottom>
           Login
-        </Button>
-        <br />
-        <a href='/signup'>Don't have an account? Sign up!</a>
-      </div>
+        </Typography>
+        <form onSubmit={props.handleLogin}>
+            <Field required component={RenderInput} name="username" id="username"  onChange={ props.handleInputChange }/>
+            <Field required name="password" id="password" component={RenderInput} onChange={ props.handleInputChange }/>
+        </form>
+        <CardActions style={{justifyContent: 'center'}}>
+            <Button type="button" disabled={submitting} onClick={props.handleLogin} color="primary" variant="contained">
+                Submit
+            </Button>
         </CardActions>
-      </Card>
-    );
-  }
+        </Content>
+      </MuiCard>
+  </Container>
+  )}
+  
+    SigninForm = reduxForm({
+    form: 'SigninForm',
+    destroyOnUnmount: false,
+    validate
+  })(SigninForm)
 
-
-LoginCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(LoginCard);
+export default (SigninForm);
