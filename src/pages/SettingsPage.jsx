@@ -6,26 +6,28 @@ import { withRouter } from 'react-router-dom';
 import '../App.css';
 
 //Components
-import PostOffering from '../components/PostOfferingForm';
+import PostSettingsForm from '../components/PostSettingsForm';
+
+//Redux
+import { connect } from 'react-redux';
 
 //Material Ui
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //Actions 
-import * as actions from '../store/actions/index';
-
-//Redux
-import { connect } from 'react-redux';
+import * as actions from '../store/actions/index'
 
 
+class SettingsPage extends React.Component {
 
-class PostOfferingPage extends React.Component {
     state = {
-        title: '',
-        address: '',
-        description: '',
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        password: '',
         file: [],
         image: '',
+        
     }
 
     //Computed property syntax
@@ -40,7 +42,7 @@ class PostOfferingPage extends React.Component {
 
     handlePost = (e) => {
 
-        this.props.post(this.state.title, this.state.address, this.state.description, this.state.image, this.props.user.id,)
+        this.props.post(this.state.first_name, this.state.last_name, this.state.phone_number, this.state.password, this.state.image, this.props.user.id, this.props.user.username)
         this.props.history.push('/');
     }
 
@@ -74,7 +76,7 @@ class PostOfferingPage extends React.Component {
                         :
                         <React.Fragment>
                             
-                            <PostOffering
+                            <PostSettingsForm
                                 handleInputChange={ this.handleInputChange } 
                                 handlePost={ this.handlePost }
                                 onDrop={ this.onDrop }
@@ -99,8 +101,8 @@ const mapStateToProps = (state) => {
   const mapDispatchToProps = dispatch => {
 
     return {
-        post: (title, address, description, image, id) => dispatch(actions.PostOffering(title, address, description, image, id)),
+        post: (first_name, last_name, phone_number, password, image, id, username) => dispatch(actions.updateProfile(first_name, last_name, phone_number, password, image, id, username)),
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostOfferingPage))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SettingsPage))

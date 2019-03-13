@@ -15,19 +15,19 @@ import MuiCard from './Card';
 import Container from './Container';
 
 // React DropZone
-import DropYourShitZone from '../components/DropShit';
+import DropYourShitZone from './DropShit';
 import Content from './Content';
 
 const validate = values => {
     const errors = {}
-    if (!values.title) {
+    if (!values.firstName) {
+      errors.firstName = 'Required'
+    }
+    if (!values.lastName) {
+        errors.lastName = 'Required'
+    }
+    if (!values.phone_number) {
       errors.title = 'Required'
-    }
-    if (!values.address) {
-        errors.address = 'Required'
-    }
-    if (!values.description) {
-      errors.description = 'Required'
     }
     if (!values.image) {
       errors.image = 'Required'
@@ -53,19 +53,26 @@ const validate = values => {
      <TextField required fullWidth {...input} id={id} label={name} color="primary"/>
   })
   
- 
-  let PostOffering = (props, { submitting }) => {
+  // const ImageDrop = styled.div`
+  //   width: 100%;
+  //   height: 30vh;
+  //   max-width: 400px;
+  //   background: #F5F5F5;
+  //   align-items: center;
+  //   overflow: hidden;
+  // `
+  let PostSettingsform = (props, { submitting }) => {
   return (
   <Container>
       <MuiCard>
-
         <Content>
         <DropYourShitZone onDrop={props.onDrop}></DropYourShitZone>
         
         <form onSubmit={props.handlePost}>
-            <Field name="title" id="title" component={RenderInput} onChange={ props.handleInputChange }/>
-            <Field name="address" id="address" component={RenderInput} onChange={ props.handleInputChange }/>
-            <Field name="description" id="description" component={RenderInput} onChange={ props.handleInputChange }/>
+          <Field name="first name" id="first_name" component={RenderInput} onChange={ props.handleInputChange }/>
+          <Field name="last name" id="last_name" component={RenderInput} onChange={ props.handleInputChange }/>
+          <Field name="phone number" id="phone_number" component={RenderInput} onChange={ props.handleInputChange }/>
+          <Field name="password" id="password" component={RenderInput} onChange={ props.handleInputChange }/>
         </form>
         <CardActions style={{justifyContent: 'center'}}>
             <Button type="button" disabled={submitting} onClick={props.handlePost} color="primary" variant="contained">
@@ -77,10 +84,10 @@ const validate = values => {
   </Container>
   )}
   
-    PostOffering = reduxForm({
-    form: 'PostOffering',
+    PostSettingsform = reduxForm({
+    form: 'PostSettingsForm',
     destroyOnUnmount: false,
     validate
-  })(PostOffering)
+  })(PostSettingsform)
 
-export default (PostOffering);
+export default (PostSettingsform);

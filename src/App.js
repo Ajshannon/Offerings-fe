@@ -18,6 +18,7 @@ import LoginPage from './pages/Login.jsx';
 import SignupPage from './pages/Signup.jsx';
 import NavBar from './components/NavBar';
 import PostOffering from './pages/PostOffering';
+import SettingsPage from './pages/SettingsPage';
 
 // Actions
 import * as actions from './store/actions/index'
@@ -44,7 +45,7 @@ class App extends Component {
                 <Route exact path='/login' render={() => <LoginPage {...this.props}/>} />
                 <Route exact path='/signup' render={() => <SignupPage {...this.props}/>} />
                 <Route exact path='/offering-post' render={() => <PostOffering {...this.props}/>} />
-
+                <Route exact path='/settings' render={() => <SettingsPage {...this.props}/>} />
               </Switch>
             </NavBar>
         </React.Fragment>

@@ -52,7 +52,7 @@ class LoginPage extends React.Component {
         }
 
         return (
-            <div>
+            <React.Fragment>
                 {errorMessage}
                 {
                     this.props.loading ?
@@ -64,7 +64,7 @@ class LoginPage extends React.Component {
                         handleLogin={ this.handleLogin }
                     />
                 }
-            </div>
+             </React.Fragment>
         )
     }
 }

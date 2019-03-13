@@ -56,21 +56,53 @@ export const getUser = (token) => {
     }
 }
 
-// export const getProfile = (token) => {
+export const updateUser = (username, password, first_name, last_name,) => {
+    const url = 'http://127.0.0.1:8000/rest-auth/user/';
+    const token = localStorage.getItem('token')
+    return dispatch => {
+        axios.put(url, 
+            {   
+                username: username,
+                password: password,
+                first_name: first_name,
+                last_name: last_name,
+            }, {
+            headers: {'Authorization': "Token " + token}
+        })
+        .then(res => {
+            dispatch(authSuccess(token, res.data))
+        })
+    }
+}
 
-//     return dispatch => {
-//         axios.get('http://127.0.0.1:8000/api/v1/user/', {
-//             headers: {'Authorization': "Token " + token}
-//         })
-//         .then(res => {
-//             dispatch(authSuccess(token, res.data))
-//         })
-//     }
-// }
 
-// export const updateProfile = () => {
+export const updateProfile = (first_name, last_name, phone_number, password, image, id, username) => {
+    const url = 'http://127.0.0.1:8000/api/v1/profile/' + id + '/';
+    const token = localStorage.getItem('token')
+    return dispatch => {
+        axios.put(url, 
+            {
+                phone_number: phone_number,
+                profile_image: 'http://example.com/' + image,
+            }, {
+            headers: {'Authorization': "Token " + token}
+        }).then(res => {
+            console.log(res)
+            dispatch(updateUser(username, password, first_name, last_name, ))
+        })
+    }
+}
+
+// export const updateUser = (first_name, last_name, phone_number, profile_image, id) => {
+//     const url = 'http://127.0.0.1:8000/api/v1/profile/' + id + '/';
+//     const token = localStorage.getItem('token')
 //     return dispatch => {
-//         axios.put('http://127.0.0.1:800/api/v1/profile', {
+//         axios.put(url, 
+//             {
+//                 description: description,
+//                 image: 'http://example.com/' + image,
+//                 profile: profile
+//             }, {
 //             headers: {'Authorization': "Token " + token}
 //         })
 //     }

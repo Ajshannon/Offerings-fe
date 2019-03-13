@@ -1,19 +1,47 @@
 import React from 'react'
-// import { useDropzone } from 'react-dropzone'
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
+import styled from 'styled-components';
+
+const DropzoneInput = styled(Dropzone)`
+background-color: ;
+&:hover {
+    cursor: alias;
+}
+@media (min-width: 600px) {
+    width: 100%;
+    }
+`
+const ImageDrop = styled.div`
+    
+    display: flex;
+    background: #F5F5F5;
+    width: 40vw;
+    max-width: 350px;
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+`
+
+function MaterialIcon(props) {
+    return (
+      <i className='material-icons' margin='18vw'>
+        {props.icon}
+      </i>
+    )
+  }
 
 export default class DropYourShitZone extends React.Component {
 
   render() {
       return (
-          <Dropzone onDrop={acceptedFiles => this.props.onDrop(acceptedFiles)}>
+          <DropzoneInput onDrop={acceptedFiles => this.props.onDrop(acceptedFiles)}>
           {({getRootProps, getInputProps}) => (
-              <section>
-              <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p>Drag 'n' drop some files here, or click to select files</p>
-              </div>
-              </section>
+            <ImageDrop {...getRootProps()}>
+                <MaterialIcon icon='insert_photo'/>
+                <input className='icon' {...getInputProps()} />
+            </ImageDrop> 
           )}
-          </Dropzone>
+          </DropzoneInput>
       )}}

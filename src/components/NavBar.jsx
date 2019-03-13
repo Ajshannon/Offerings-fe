@@ -17,8 +17,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Button from '@material-ui/core/Button'
 import Drawer from '@material-ui/core/Drawer';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import Grid from '@material-ui/core/Grid';
 
 import styled from 'styled-components';
 
@@ -29,22 +31,10 @@ import { connect } from 'react-redux';
 import * as actions from '../store/actions/index';
 
 
-// const styles = {
-//     root: {
-//       flexGrow: 1,
-//     },
-//     grow: {
-//       flexGrow: 1,
-//     },
-//     menuButton: {
-//       marginleft: -12,
-//       marginRight: 20,
-//     },
-//   };
-
 const RightContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   && {
     @media(max-width: 600px) {
       display: none;
@@ -60,6 +50,26 @@ const MobileContainer = styled(MenuIcon)`
   }
 `
 
+const Title = styled(Typography)`
+&& {
+  margin: 0 auto;
+  text-align: center;
+  margin-left: -15vw;
+  @media(max-width: 600px) {import { withTheme } from 'styled-components';
+    margin-left: 10vw;
+  }
+  }
+`
+const TopNav = styled(Typography)`
+&& {
+  
+  text-align: right;
+  @media(min-width: 600px) {import { withTheme } from 'styled-components';
+    display: none;
+  }
+  }
+`
+
 function HomeIcon(props) {
   return (
     <SvgIcon {...props}>
@@ -68,7 +78,6 @@ function HomeIcon(props) {
   );
 }
 
-// 'report_problem', 'settings', 'undo'
 
 function MaterialIcon(props) {
   return (
@@ -108,45 +117,43 @@ function MaterialIcon(props) {
       const open = Boolean(anchorEl);
       const sideList = (
         <div>
-          <List>
-              <MenuItem component={Link} to='/'>
-                <ListItemIcon>{<HomeIcon />}</ListItemIcon>
-                <ListItemText>Home</ListItemText>
-              </MenuItem>
-              <MenuItem component={Link} to='/feedback'>
-                <ListItemIcon>{<MaterialIcon icon='report_problem' />}</ListItemIcon>
-                <ListItemText>Give feedback</ListItemText>
-              </MenuItem>
-              <MenuItem component={Link} to='/setting'>
-                <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
-                <ListItemText>Settings</ListItemText>
-              </MenuItem>
-              <MenuItem component={Link} to='/signup'>
-                <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
-                <ListItemText>Signup</ListItemText>
-              </MenuItem>
-              <MenuItem component={Link} to='/offering-post'>
-                <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
-                <ListItemText>Signup</ListItemText>
-              </MenuItem>
               {
                 this.props.isAuthenticated ?
-
-                <MenuItem component={Link} to='/logout'>
-                  <ListItemIcon>{<MaterialIcon icon='undo' />}</ListItemIcon>
-                  <ListItemText>logout</ListItemText>
-                </MenuItem>
-
+                <List>
+                  <MenuItem component={Link} to='/'>
+                    <ListItemIcon>{<HomeIcon />}</ListItemIcon>
+                    <ListItemText>Home</ListItemText>
+                  </MenuItem>
+                  <MenuItem component={Link} to='/feedback'>
+                    <ListItemIcon>{<MaterialIcon icon='report_problem' />}</ListItemIcon>
+                    <ListItemText>Give feedback</ListItemText>
+                  </MenuItem>
+                  <MenuItem component={Link} to='/logout'>
+                    <ListItemIcon>{<MaterialIcon icon='undo' />}</ListItemIcon>
+                    <ListItemText>logout</ListItemText>
+                  </MenuItem>
+                  <MenuItem component={Link} to='/offering-post'>
+                    <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
+                    <ListItemText>Offering-post</ListItemText>
+                  </MenuItem>
+                  <MenuItem component={Link} to='/settings'>
+                    <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
+                    <ListItemText>Settings</ListItemText>
+                  </MenuItem>
+                </List>
                 :
-                
-                <MenuItem component={Link} to='/login'>
-                  <ListItemIcon>{<MaterialIcon icon='undo' />}</ListItemIcon>
-                  <ListItemText>login</ListItemText>
-                </MenuItem>
-
+                <List>
+                  <MenuItem component={Link} to='/login'>
+                    <ListItemIcon>{<MaterialIcon icon='undo' />}</ListItemIcon>
+                    <ListItemText>login</ListItemText>
+                  </MenuItem>
+                  <MenuItem component={Link} to='/signup'>
+                    <ListItemIcon>{<MaterialIcon icon='settings' />}</ListItemIcon>
+                    <ListItemText>Signup</ListItemText>
+                  </MenuItem>
+                </List>
               }
               
-          </List>
         </div>
       )
 
@@ -164,49 +171,77 @@ function MaterialIcon(props) {
           </Drawer>
           <AppBar position="static" style={{backgroundColor:'primary'}}>
             <Toolbar>
-              <Typography variant="h6" marginleft="20">
-                <IconButton color="secondary" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
-                  <MobileContainer/>
-                </IconButton>
-              </Typography>
+              
               {auth && (
-              <RightContainer>
-                  <Typography variant="h6" marginleft="20">
-                        
-                        {
-                          this.props.user ?
-                          this.props.user.username:
-
-                          <MenuItem component={ Link } to='/login'>login</MenuItem>
-
-                        }
-                  </Typography>
-                  <IconButton variant="h6" marginleft="20" 
-                    color="secondary"
-                    aria-owns={open ? 'menu-appbar' : undefined}
-                    aria-haspopup="true"
-                    onClick={this.handleMenu}
-                  >
-                    <AccountCircle />
+                <Grid container alignItems='center' direction='row'>
+                <Grid color="inherit"item xs={1} sm={false}>
+                  <TopNav color="inherit" variant="h6" marginleft="20">
+                  <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
+                    <MobileContainer/>
                   </IconButton>
-                  <Menu 
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    // anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
-                    transformOrigin={{ vertical: 'bottom', horizontal: 'right'}}
-                    open={open}
-                    onClose={this.handleClose}
-                  >
-                    <MenuItem onClick={this.handleClose}>Settings</MenuItem>
-                    <MenuItem component={ Link } onClick={this.handleClose} to='/signup'>Signup</MenuItem>
-                    <MenuItem component={ Link } onClick={this.handleClose} to='/offering-post'>Post Offering</MenuItem>
-                    {
-                      this.props.isAuthenticated ?
-                      <MenuItem component={ Link } onClick={this.props.logout} to='/'>Signout</MenuItem> :
-                      <MenuItem component={ Link } onClick={this.handleClose} to='/login'>Login</MenuItem>
-                    }
-                  </Menu>
-                </RightContainer>
+                  </TopNav>
+                </Grid>
+                <Grid item xs={10} sm={1}> 
+                  <Title variant="h6" color="inherit" >Offerings</Title>
+                </Grid>
+                <Grid item xs={false} sm={10}>
+                  <RightContainer>
+                      <Typography variant="h6" marginleft="20" color="inherit">
+                            {
+                              this.props.user ?
+                              <React.Fragment>
+                                <Button color="inherit" href="/settings">{this.props.user.username}</Button>
+                                <Button color="inherit" href="mailto:aj@kenzie.academy">Give feedback</Button>
+                              </React.Fragment>
+                              :
+                              <React.Fragment>
+                                <Button color="inherit" href="/login">Login</Button>
+                                <Button color="inherit" href="mailto:aj@kenzie.academy">Give feedback</Button>
+                              </React.Fragment>
+                            }
+                      </Typography>
+                      <IconButton variant="h6" marginleft="20"
+                        color="inherit"
+                        aria-owns={open ? 'menu-appbar' : undefined}
+                        aria-haspopup="true"
+                        onClick={this.handleMenu}
+                      >
+                        <AccountCircle />
+                      </IconButton>
+                      {
+                          this.props.isAuthenticated ?
+
+                      <Menu 
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        // anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+                        transformOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+                        open={open}
+                        onClose={this.handleClose}
+                      >
+                        <MenuItem component={ Link } onClick={this.handleClose} to='/settings'>Settings</MenuItem>
+                        <MenuItem component={ Link } onClick={this.handleClose} to='/offering-post'>Post Offering</MenuItem>
+                        <MenuItem component={ Link } onClick={this.props.logout} to='/'>Signout</MenuItem> 
+
+                      </Menu>:
+                      <Menu 
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        // anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+                        transformOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+                        open={open}
+                        onClose={this.handleClose}
+                      >
+                        <MenuItem component={ Link } onClick={this.handleClose} to='/settings'>Settings</MenuItem>
+                        <MenuItem component={ Link } onClick={this.handleClose} to='/signup'>Signup</MenuItem>
+                        <MenuItem component={ Link } onClick={this.handleClose} to='/login'>Login</MenuItem>
+                        
+                      </Menu>
+                        }
+                      
+                    </RightContainer>
+                </Grid>
+                </Grid>
               )}
             </Toolbar>
           </AppBar>
