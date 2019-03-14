@@ -17,8 +17,6 @@ import * as actions from '../store/actions/index';
 //Redux
 import { connect } from 'react-redux';
 
-
-
 // Filestack
 import * as filestack from 'filestack-js';
 const client = filestack.init('AF4xbENiITyaZU5EGIVXgz');
@@ -30,22 +28,20 @@ class PostOfferingPage extends React.Component {
         address: '',
         description: '',
         file: [],
+        filePreview: '',
         image: '',
     }
-
+    
     //Computed property syntax
     handleInputChange = (event) => {
         const id = event.target.id;
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        console.log(this.state)
         this.setState({
             [id]: value
         })
     }
 
-
     handlePost = (e) => {
-        console.log(this.state.file)
         client.upload(this.state.file)
             .then(res => {
                 console.log('success: ', res)
@@ -64,13 +60,13 @@ class PostOfferingPage extends React.Component {
 
     // React-dropzone
     onDrop = (acceptedFiles) => {
+        console.log(URL.createObjectURL(acceptedFiles))
         if (acceptedFiles && acceptedFiles.length > 0){
           this.setState({
             file: acceptedFiles[0],
-            console
+            filePreview: acceptedFiles[0]["preview"]
           })
         }
-        console.log(this.state)
       }
     
     render () {
@@ -93,6 +89,7 @@ class PostOfferingPage extends React.Component {
                         <React.Fragment>
                             
                             <PostOffering
+                                preview={ this.state.filePreview }
                                 handleInputChange={ this.handleInputChange } 
                                 handlePost={ this.handlePost }
                                 onDrop={ this.onDrop }

@@ -17,6 +17,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 //Actions 
 import * as actions from '../store/actions/index'
 
+// Filestack
+import * as filestack from 'filestack-js';
+const client = filestack.init('AF4xbENiITyaZU5EGIVXgz');
+
 
 class SettingsPage extends React.Component {
 
@@ -41,10 +45,22 @@ class SettingsPage extends React.Component {
     }
 
     handlePost = (e) => {
-
-        this.props.post(this.state.first_name, this.state.last_name, this.state.phone_number, this.state.password, this.state.image, this.props.user.id, this.props.user.username)
-        this.props.history.push('/');
-    }
+        console.log(this.state.file)
+        client.upload(this.state.file)
+            .then(res => {
+                console.log('success: ', res)
+                this.setState({image: res.url})
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            .then(() => {
+                this.props.post(this.state.first_name, this.state.last_name, this.state.phone_number, this.state.password, this.state.image, this.props.user.id, this.props.user.username);
+                this.props.history.push('/');
+            })
+        }
+    
 
     // React-dropzone
     onDrop = (acceptedFiles) => {

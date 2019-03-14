@@ -32,15 +32,13 @@ const validate = values => {
     if (!values.lastName) {
         errors.lastName = 'Required'
     }
-    if (!values.password1) {
+    if (!values.password) {
       errors.password = 'Required'
     }
     if (!values.confirm) {
       errors.confirm = 'Required'
     }
-    if (values.password1 !== values.confirm) {
-      errors.confirm = 'Passwords do not match'
-    }
+    
     return errors
   }
 
@@ -52,7 +50,7 @@ const validate = values => {
       ].join(' ')}
 
     >
-
+    {meta.error ? console.log(meta.error): null}
     {meta.error && meta.touched ? render(input, name, id, error = true, errorMsg = meta.error, rest) : 
       render(input, name, id, error = false, rest)}
       
@@ -78,15 +76,15 @@ const validate = values => {
             Signup Form
           </Typography>
           <form onSubmit={props.handleSignup}>
-              <Field required component={RenderInput} name="username" id="username"  onChange={ props.handleInputChange }/>
-              <Field required name="password" id="password1" component={RenderInput} onChange={ props.handleInputChange }/>
-              <Field required name="confirm" id="password2" component={RenderInput} onChange={ props.handleInputChange }/>
-              <Field required name="email" id="email" component={RenderInput} onChange={ props.handleInputChange }/>
+              <Field name="username" id="username" component={RenderInput} onChange={ props.handleInputChange }/>
+              <Field name="password" id="password1" component={RenderInput} onChange={ props.handleInputChange }/>
+              <Field name="confirm" id="password2" component={RenderInput} onChange={ props.handleInputChange }/>
+              <Field name="email" id="email" component={RenderInput} onChange={ props.handleInputChange }/>
               <Field name="firstName" id="first_name" component={RenderInput} onChange={ props.handleInputChange }/>
               <Field name="lastName" id="last_name" component={RenderInput} onChange={ props.handleInputChange }/>
           </form>
           <CardActions style={{justifyContent: 'center'}}>
-              <Button type="button" disabled={submitting} color="primary" variant="contained">
+              <Button type="button" onClick={props.handleSignup} disabled={submitting} color="primary" variant="contained">
                   Submit
               </Button>
           </CardActions>

@@ -83,7 +83,7 @@ export const updateProfile = (first_name, last_name, phone_number, password, ima
         axios.put(url, 
             {
                 phone_number: phone_number,
-                profile_image: 'http://example.com/' + image,
+                profile_image: image,
             }, {
             headers: {'Authorization': "Token " + token}
         }).then(res => {
@@ -92,21 +92,6 @@ export const updateProfile = (first_name, last_name, phone_number, password, ima
         })
     }
 }
-
-// export const updateUser = (first_name, last_name, phone_number, profile_image, id) => {
-//     const url = 'http://127.0.0.1:8000/api/v1/profile/' + id + '/';
-//     const token = localStorage.getItem('token')
-//     return dispatch => {
-//         axios.put(url, 
-//             {
-//                 description: description,
-//                 image: 'http://example.com/' + image,
-//                 profile: profile
-//             }, {
-//             headers: {'Authorization': "Token " + token}
-//         })
-//     }
-// }
 
 
 export const PostOffering = (title, address, description, image, id) => {
@@ -177,7 +162,6 @@ export const authLogin = (username, password, csrfToken) => {
 }
 
 
-
 export const authSignup = (username, password1, password2, first_name, last_name, email) => {
     console.log("signing up...")
     return dispatch => {
@@ -189,10 +173,9 @@ export const authSignup = (username, password1, password2, first_name, last_name
             first_name: first_name,
             last_name: last_name,
             email: email
-            
         })
         .then(res => {
-            
+            console.log(res)
             const token = res.data.key;
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', token);

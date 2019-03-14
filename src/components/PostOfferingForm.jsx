@@ -18,8 +18,6 @@ import Container from './Container';
 import DropYourShitZone from '../components/DropShit';
 import Content from './Content';
 
-// Filestack
-import ReactFilestack from 'filestack-react';
 
 const validate = values => {
     const errors = {}
@@ -58,27 +56,29 @@ const validate = values => {
   
  
   let PostOffering = (props, { submitting }) => {
-  return (
-  <Container>
-      <MuiCard>
+    console.log("post offering form")
+    console.log(props.image)
+    return (
+    <Container>
+        <MuiCard>
 
-        <Content>
-        <DropYourShitZone onDrop={props.onDrop}></DropYourShitZone>
-        
-        <form onSubmit={props.handlePost}>
-            <Field name="title" id="title" component={RenderInput} onChange={ props.handleInputChange }/>
-            <Field name="address" id="address" component={RenderInput} onChange={ props.handleInputChange }/>
-            <Field name="description" id="description" component={RenderInput} onChange={ props.handleInputChange }/>
-        </form>
-        <CardActions style={{justifyContent: 'center'}}>
-            <Button type="button" disabled={submitting} onClick={props.handlePost} color="primary" variant="contained">
-                Submit
-            </Button>
-        </CardActions>
-      </Content>
-      </MuiCard>
-  </Container>
-  )}
+          <Content>
+          <DropYourShitZone onDrop={props.onDrop} preview={props.preview? props.preview: null}></DropYourShitZone>
+          
+          <form onSubmit={props.handlePost}>
+              <Field name="title" id="title" component={RenderInput} onChange={ props.handleInputChange }/>
+              <Field name="address" id="address" component={RenderInput} onChange={ props.handleInputChange }/>
+              <Field name="description" id="description" component={RenderInput} onChange={ props.handleInputChange }/>
+          </form>
+          <CardActions style={{justifyContent: 'center'}}>
+              <Button type="button" disabled={submitting} onClick={props.handlePost} color="primary" variant="contained">
+                  Submit
+              </Button>
+          </CardActions>
+        </Content>
+        </MuiCard>
+    </Container>
+    )}
   
     PostOffering = reduxForm({
     form: 'PostOffering',

@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import './App.css';
 
 // Pages
-import CreateOffering from './pages/CreateOffering.jsx';
 import Homepage from './pages/Homepage.jsx';
 import LoginPage from './pages/Login.jsx';
 import SignupPage from './pages/Signup.jsx';
@@ -41,7 +40,6 @@ class App extends Component {
             <NavBar {...this.props}>
               <Switch>
                 <Route exact path='/' render={() => <Homepage {...this.props}/>} />
-                <Route exact path='/create_offering' render={() => <CreateOffering {...this.props}/>} />
                 <Route exact path='/login' render={() => <LoginPage {...this.props}/>} />
                 <Route exact path='/signup' render={() => <SignupPage {...this.props}/>} />
                 <Route exact path='/offering-post' render={() => <PostOffering {...this.props}/>} />

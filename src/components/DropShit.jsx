@@ -33,15 +33,21 @@ function MaterialIcon(props) {
   }
 
 export default class DropYourShitZone extends React.Component {
-
+  
   render() {
-      return (
+    {this.props.preview ? console.log(this.props.preview) : console.log("no image")}
+    console.log(this.props)
+      return (<div>
+        {this.props.preview !== "" ? 
           <DropzoneInput onDrop={acceptedFiles => this.props.onDrop(acceptedFiles)}>
           {({getRootProps, getInputProps}) => (
             <ImageDrop {...getRootProps()}>
+              
                 <MaterialIcon icon='insert_photo'/>
                 <input className='icon' {...getInputProps()} />
             </ImageDrop> 
           )}
-          </DropzoneInput>
+          </DropzoneInput>: <div></div>
+          }
+          </div>
       )}}
