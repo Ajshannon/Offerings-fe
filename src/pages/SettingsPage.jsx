@@ -30,15 +30,14 @@ class SettingsPage extends React.Component {
         phone_number: '',
         password: '',
         file: [],
+        filePreview: '',
         image: '',
-        
     }
 
     //Computed property syntax
     handleInputChange = (event) => {
         const id = event.target.id;
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        console.log(this.state)
         this.setState({
             [id]: value
         })
@@ -63,11 +62,11 @@ class SettingsPage extends React.Component {
     
 
     // React-dropzone
-    onDrop = (acceptedFiles) => {
+    onDrop = (acceptedFiles, preview) => {
         if (acceptedFiles && acceptedFiles.length > 0){
           this.setState({
             file: acceptedFiles[0],
-            image: acceptedFiles[0]["name"]
+            filePreview: preview
           })
         }
         console.log(this.state)
@@ -93,6 +92,7 @@ class SettingsPage extends React.Component {
                         <React.Fragment>
                             
                             <PostSettingsForm
+                                preview={ this.state.filePreview }
                                 handleInputChange={ this.handleInputChange } 
                                 handlePost={ this.handlePost }
                                 onDrop={ this.onDrop }

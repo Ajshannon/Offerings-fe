@@ -9,7 +9,9 @@ const TitleContainer = styled.div`
     flex-wrap: no-wrap;
     margin-left: 5%;
     margin-right: 5%;
-    margin-top: 1%
+    margin-top: 1%;
+    margin-bottom: 1.5%
+
 `
 const OfferingType = styled.h1`
     font-family: Roboto;

@@ -66,7 +66,7 @@ const validate = values => {
   <Container>
       <MuiCard>
         <Content>
-        <DropYourShitZone onDrop={props.onDrop}></DropYourShitZone>
+        <DropYourShitZone onDrop={props.onDrop} preview={props.preview? props.preview: null}></DropYourShitZone>
         
         <form onSubmit={props.handlePost}>
           <Field name="first name" id="first_name" component={RenderInput} onChange={ props.handleInputChange }/>
