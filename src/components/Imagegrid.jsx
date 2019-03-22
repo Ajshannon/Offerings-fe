@@ -39,7 +39,7 @@ class ImageGrid extends React.Component {
         tileData: []
     }
     componentDidMount(){
-        fetch("http://damp-refuge-45650/api/v1/offerings/")
+        fetch("https://damp-refuge-45650.herokuapp.com/api/v1/offerings/")
             .then(res => {
                 return res.json()})
             .then(data => {
