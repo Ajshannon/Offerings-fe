@@ -7,26 +7,13 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import styled from 'styled-components'
-import burger from './images/131.jpg'
-import burrito from './images/burito.jpg'
-import kebab from './images/kebab.jpg'
-import pancake from './images/Pancake.jpeg'
-import spagette from './images/spagette.jpg'
-import taco from './images/taco.jpg'
+import Container from './Container';
+import { Card } from '@material-ui/core';
+
 
 const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'no-wrap',
-        justifyContent: 'flex-start',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
-        marginleft: '5%',
-        marginRight: '5%'
-    },
+
     gridList: {
-        flexWrap: 'nowrap',
-        transform: 'translateZ(0)',
     },
     icon: {
         color: 'rgba(255, 255, 255, 0.54',
@@ -42,75 +29,60 @@ const styles = theme => ({
 
 const Divider = styled.hr`
     color: gray;
-    height: 1px;
+    height: 0.5px;
     background-color: rgba(0, 0, 0, 0.12);
 `
 
 
-const tileData= [
-    {
-        img:  burger ,
-        title: 'Burger',
-        author: 'Ben'
-    },
-    {
-        img:  burrito ,
-        title: 'Burito',
-        author: 'Matt'
-    },
-    {
-        img:  kebab ,
-        title: 'Kebab',
-        author: 'AJ'
-    },
-    {
-        img:  pancake ,
-        title: 'Pancake',
-        author: 'Sam'
-    },
-    {
-        img:  spagette ,
-        title: 'Spagette',
-        author: 'Ethan'
-    },
-    {
-        img:  taco ,
-        title: 'Taco',
-        author: 'Sarah'
+class ImageGrid extends React.Component {
+    state = {
+        tileData: []
     }
-]
+    componentDidMount(){
+        fetch("https://damp-refuge-45650.herokuapp.com/api/v1/offerings/")
+            .then(res => {
+                return res.json()})
+            .then(data => {
+                this.setState({tileData: data.results});
+            })
+    }
 
-function ImageGrid(props) {
-    const { classes } = props;
+    render() {
+        const { classes } = this.props;
 
-return (
-    <div className={classes.root}>
-        <div>
-        <Divider/>
-        <GridList className={classes.gridList} col={2.5}>
-            {tileData.map(tile => (
-                <GridListTile key={tile.img} cols={.5}>
-                    <img src={tile.img} alt={tile.title} />
-                    <GridListTileBar
-                        title={tile.title}
-                        subtitle={<span>{tile.author}</span>}
-                        classes={{
-                            root: classes.titleBar,
-                            title: classes.title,
-                        }}
-                        actionIcon={
-                            <IconButton className={classes.icon}>
-                                <InfoIcon />
-                            </IconButton>
-                        }
-                        />
-                </GridListTile>
-            ))}
-        </GridList>
-        </div>
-    </div>
-    );
-}
+        return (
+            <Container>
+                <Card>
+                <div>
+                <Divider/>
+                <GridList className={classes.gridList} col={2.5}>
+                    {this.state.tileData.map(tile => (
+                        
+                        <GridListTile key={tile.image} cols={.5}>
+                            
+                            <img src={tile.image} alt={tile.title} />
+                            <GridListTileBar
+                                title={tile.title}
+                                subtitle={<span>{tile.profile}</span>}
+                                
+                                this={{
+                                    root: classes.titleBar,
+                                    title: classes.title,
+                                }}
+                                actionIcon={
+                                    <IconButton className={classes.icon}>
+                                        <InfoIcon />
+                                    </IconButton>
+                                }
+                                />
+                        </GridListTile>
+                    ))}
+                </GridList>
+                </div>
+                </Card>
+            </Container>
+            );
+        }}
 
 ImageGrid.propTypes = {
     children: PropTypes.node,

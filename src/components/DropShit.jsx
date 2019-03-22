@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
+
+// ReactDropzone
+import {useDropzone} from 'react-dropzone';
 
 const DropzoneInput = styled(Dropzone)`
 background-color: ;
@@ -32,22 +35,30 @@ function MaterialIcon(props) {
     )
   }
 
-export default class DropYourShitZone extends React.Component {
+let DropYourShitZone = (props) => {
+  const [files, setFiles] = useState([]);
+  const {getRootProps, getInputProps} = useDropzone({
+    accept: 'image/*',
+    onDrop: acceptedFiles => {
+      let preview = URL.createObjectURL(acceptedFiles[0])
+      props.onDrop(acceptedFiles, preview);
+    }
+  });
   
-  render() {
-    {this.props.preview ? console.log(this.props.preview) : console.log("no image")}
-    console.log(this.props)
+    {props.preview ? console.log(props.preview) : console.log("no image")}
       return (<div>
-        {this.props.preview !== "" ? 
-          <DropzoneInput onDrop={acceptedFiles => this.props.onDrop(acceptedFiles)}>
-          {({getRootProps, getInputProps}) => (
+        {props.preview !== "" ? 
+          <DropzoneInput >
+          {() => (
             <ImageDrop {...getRootProps()}>
-              
+                <img src={props.preview}></img>
                 <MaterialIcon icon='insert_photo'/>
                 <input className='icon' {...getInputProps()} />
             </ImageDrop> 
           )}
-          </DropzoneInput>: <div></div>
+          </DropzoneInput>: <img src={props.preview}></img>
           }
           </div>
-      )}}
+      )}
+
+export default DropYourShitZone

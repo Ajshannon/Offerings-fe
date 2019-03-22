@@ -1,6 +1,9 @@
 //React
-import React from 'react';
+import React , { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+
+// ReactDropzone
+import {useDropzone} from 'react-dropzone';
 
 //CSS
 import '../App.css';
@@ -20,6 +23,7 @@ import { connect } from 'react-redux';
 // Filestack
 import * as filestack from 'filestack-js';
 const client = filestack.init('AF4xbENiITyaZU5EGIVXgz');
+
 
 
 class PostOfferingPage extends React.Component {
@@ -58,13 +62,11 @@ class PostOfferingPage extends React.Component {
 
     }
 
-    // React-dropzone
-    onDrop = (acceptedFiles) => {
-        console.log(URL.createObjectURL(acceptedFiles))
+    onDrop = (acceptedFiles, preview) => {
         if (acceptedFiles && acceptedFiles.length > 0){
           this.setState({
             file: acceptedFiles[0],
-            filePreview: acceptedFiles[0]["preview"]
+            filePreview: preview
           })
         }
       }

@@ -182,7 +182,7 @@ function MaterialIcon(props) {
                   </TopNav>
                 </Grid>
                 <Grid item xs={10} sm={1}> 
-                  <Title variant="h6" color="inherit" >Offerings</Title>
+                  <Title variant="h6" color="inherit" ><Button href="/" color="inherit">Offerings</Button></Title>
                 </Grid>
                 <Grid item xs={false} sm={10}>
                   <RightContainer>

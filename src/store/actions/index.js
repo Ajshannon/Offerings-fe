@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes.js'
 import axios from 'axios';
 
+const api = 'https://rocky-escarpment-20978.herokuapp.com';
 
 export const authStart = () => {
     console.log('authStart')
@@ -47,7 +48,7 @@ export const checkAuthTimeout = expirationTime => {
 export const getUser = (token) => {
 
     return dispatch => {
-        axios.get('http://127.0.0.1:8000/rest-auth/user/', {
+        axios.get(api + '/rest-auth/user/', {
             headers: {'Authorization': "Token " + token}
         })
         .then(res => {
@@ -57,7 +58,7 @@ export const getUser = (token) => {
 }
 
 export const updateUser = (username, password, first_name, last_name,) => {
-    const url = 'http://127.0.0.1:8000/rest-auth/user/';
+    const url = api + '/rest-auth/user/';
     const token = localStorage.getItem('token')
     return dispatch => {
         axios.put(url, 
@@ -77,7 +78,7 @@ export const updateUser = (username, password, first_name, last_name,) => {
 
 
 export const updateProfile = (first_name, last_name, phone_number, password, image, id, username) => {
-    const url = 'http://127.0.0.1:8000/api/v1/profile/' + id + '/';
+    const url = api + '/api/v1/profile/' + id + '/';
     const token = localStorage.getItem('token')
     return dispatch => {
         axios.put(url, 
@@ -87,7 +88,7 @@ export const updateProfile = (first_name, last_name, phone_number, password, ima
             }, {
             headers: {'Authorization': "Token " + token}
         }).then(res => {
-            console.log(res)
+
             dispatch(updateUser(username, password, first_name, last_name, ))
         })
     }
@@ -95,7 +96,7 @@ export const updateProfile = (first_name, last_name, phone_number, password, ima
 
 
 export const PostOffering = (title, address, description, image, id) => {
-    const url = 'http://127.0.0.1:8000/api/v1/profile/' + id + '/';
+    const url = api + '/api/v1/profile/' + id + '/';
     const token = localStorage.getItem('token')
     
     return dispatch => {
@@ -105,7 +106,6 @@ export const PostOffering = (title, address, description, image, id) => {
         .then(res => {
             const profile = res.data.id
             dispatch(PostOfferingPt2(title, address, description, image, profile))
-            
         })
         .catch(err => {
             dispatch(authFail(err))
@@ -114,7 +114,7 @@ export const PostOffering = (title, address, description, image, id) => {
 }
 
 export const PostOfferingPt2 = (title, address, description, image, profile) => {
-    const url = 'http://127.0.0.1:8000/api/v1/offerings/';
+    const url = api + '/api/v1/offerings/';
     const token = localStorage.getItem('token');
     
     return dispatch => {
@@ -137,10 +137,11 @@ export const PostOfferingPt2 = (title, address, description, image, profile) => 
 }
 
 export const authLogin = (username, password, csrfToken) => {
+    const url = api + '/rest-auth/login/';
     
     return dispatch => {
         dispatch(authStart());
-        axios.post('http://127.0.0.1:8000/rest-auth/login/', {
+        axios.post(url, {
             username: username,
             password: password,
         }, {
@@ -164,9 +165,10 @@ export const authLogin = (username, password, csrfToken) => {
 
 export const authSignup = (username, password1, password2, first_name, last_name, email) => {
     console.log("signing up...")
+    const url = api + '/rest-auth/registration/';
     return dispatch => {
         dispatch(authStart());
-        axios.post('http://127.0.0.1:8000/rest-auth/registration/', {
+        axios.post(url, {
             username: username,
             password1: password1,
             password2: password2,
